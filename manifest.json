@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "Auto Mark",
+  "description": "利用 chatgpt 实现自动收藏网站到最佳书签栏",
+  "version": "1.0.0",
+  "icons": {
+    "16": "assets/icon.png",
+    "32": "assets/icon.png",
+    "64": "assets/icon.png",
+    "128": "assets/icon.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "assets/icon.png"
+  },
+  "permissions": [
+    "storage",
+    "contextMenus",
+    "bookmarks"
+  ],
+  "background": {
+    "service_worker": "dist/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "dist/content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}

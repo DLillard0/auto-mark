@@ -1,0 +1,15 @@
+{
+  "name": "auto-mark",
+  "version": "1.0.0",
+  "description": "利用 chatgpt 实现自动收藏网站到最佳书签栏的谷歌浏览器插件",
+  "type": "module",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "author": "DLillard0",
+  "license": "MIT",
+  "devDependencies": {
+    "chrome-types": "^0.1.258",
+    "rollup": "^4.9.6"
+  }
+}

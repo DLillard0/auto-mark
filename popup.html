@@ -1,0 +1,40 @@
+<html>
+  <style>
+    body {
+      width: 350px;
+    }
+    ul, li {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    li span {
+      display: inline-block;
+      width: 50px;
+    }
+    li + li {
+      margin-top: 8px;
+    }
+    input {
+      width: 300px;
+    }
+    select {
+      width: 295px;
+    }
+  </style>
+  <body>
+    <ul>
+      <li><span>API URL:</span><input id="chatUrl" type="text"></li>
+      <li><span>API KEY:</span><input id="apiKey" type="text"></li>
+      <li><span>MODEL:</span>
+        <select id="model">
+          <option value="gpt-3.5-turbo-0613">gpt-3.5-turbo-0613</option>
+          <option value="gpt-3.5-turbo-1106">gpt-3.5-turbo-1106</option>
+          <option value="gpt-4">gpt-4</option>
+          <option value="gpt-4-0613">gpt-4-0613</option>
+        </select>
+      </li>
+    </ul>
+  </body>
+  <script src="dist/popup.js"></script>
+</html>
