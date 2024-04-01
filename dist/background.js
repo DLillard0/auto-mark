@@ -71,6 +71,7 @@ function generatePayload(config, folderPaths, title) {
 
 async function parseResponse(response) {
   const json = await response.json();
+  if (json.error) throw new Error(`ChatGPT 调用失败：${json.error.message}`)
   try {
     const fn = json.choices[0].message.tool_calls[0].function;
     const arg = JSON.parse(fn.arguments);
@@ -125,13 +126,18 @@ chrome.contextMenus.onClicked.addListener(async (item, tab) => {
       const tree = await chrome.bookmarks.getTree();
       const folders = getFolders('', tree);
       const path = await chat(local, folders.map(i => i.path), title);
-      const id = folders.find(i => i.path === path).id;
-      await chrome.bookmarks.create({
-        parentId: id,
-        title,
-        url
-      });
-      message = `已收藏至：${path}`;
+      const folder = folders.find(i => i.path === path);
+      if (!folder) {
+        message = `书签栏中未发现合适的网站目录，ChatGPT 推荐目录路径为: ${path}`;
+      } else {
+        const id = folder.id;
+        await chrome.bookmarks.create({
+          parentId: id,
+          title,
+          url
+        });
+        message = `已收藏至：${path}`;
+      }
     } catch (err) {
       console.error(err);
       message = `收藏失败！\n${err.valueOf()}`;

@@ -72,6 +72,7 @@ function generatePayload(config, folderPaths, title) {
 
 async function parseResponse(response) {
   const json = await response.json()
+  if (json.error) throw new Error(`ChatGPT 调用失败：${json.error.message}`)
   try {
     const fn = json.choices[0].message.tool_calls[0].function
     const arg = JSON.parse(fn.arguments)
